@@ -1,13 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
-import Header from '../components/Header';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import products from '../utils/data/products.json';
 import colors from '../utils/globals/colors';
 
-const ProductDetail = ({ productId, portrait }) => {
-  const { width } = useWindowDimensions();
-  const navigation = useNavigation();
+const ProductDetail = ({ route }) => {
+  const { productId } = route.params;
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -15,88 +12,75 @@ const ProductDetail = ({ productId, portrait }) => {
     setProduct(productFound);
   }, [productId]);
 
-
-
   return (
     <View style={styles.container}>
-      <Header title="Detalle del producto" />
-      <View style={[styles.content, !portrait && styles.contentPortrait]}>
+      <View style={styles.content}>
         <Image
-          style={[styles.image, { width: portrait ? '100%' : width * 0.4 }]}
+          style={styles.image}
           source={{ uri: product?.images ? product.images[0] : null }}
           resizeMode='cover'
         />
-        <View style={[styles.productDetails, !portrait && styles.productDetailsPortrait]}>
+        <View style={styles.containerText}>
           <Text style={styles.title}>{product.title}</Text>
           <Text style={styles.description}>{product.description}</Text>
-          <Text style={styles.additionalInfo}>Fabricante: {product.manufacturer}</Text>
-          <Text style={styles.additionalInfo}>Disponibilidad: {product.availability}</Text>
-          <Text style={styles.price}>$ {product.price}</Text>
-          <Pressable style={styles.buyNow}>
-            <Text style={styles.buyNowText}>Comprar ahora</Text>
-          </Pressable>
         </View>
+        <View style={styles.containerPrice}>
+          <Text style={styles.price}>$ {product.price}</Text>
+        </View>
+        <Pressable style={styles.buyNow}>
+          <Text style={styles.buyNowText}>Comprar Ahora</Text>
+        </Pressable>
       </View>
     </View>
   );
-}
-
-export default ProductDetail;
+};
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'start',
     alignItems: 'center',
   },
   content: {
     width: '100%',
-    alignItems: 'center',
-  },
-  contentPortrait: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
   },
   image: {
+    width: '100%',
     height: 300,
-    marginBottom: 20,
   },
-  productDetails: {
+  containerText: {
     paddingHorizontal: 20,
+    paddingVertical: 15,
+  },
+  containerPrice: {
     alignItems: 'center',
-    marginTop: 100,
-  },
-  productDetailsPortrait: {
-    width: '60%',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
   },
-  description: {
-    marginBottom: 15,
-  },
-  additionalInfo: {
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
     marginBottom: 5,
-    fontStyle: 'italic',
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 15,
   },
   price: {
     fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 15,
   },
   buyNow: {
     backgroundColor: colors.green1,
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10,
-    elevation: 3,
+    borderRadius: 5,
+    alignSelf: 'center',
   },
   buyNowText: {
     color: 'white',
-    fontWeight: 'bold',
     fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default ProductDetail;

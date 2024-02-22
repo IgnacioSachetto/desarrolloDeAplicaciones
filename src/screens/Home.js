@@ -1,14 +1,12 @@
 import { StyleSheet } from 'react-native'
 import Categories from '../components/Categories'
-import Header from '../components/Header'
 
 
-const Home = ({selectedCategoryState}) => {
+const Home = ({navigation}) => {
     
   return (
     <>
-        <Header title="Home"/>
-        <Categories selectedCategoryState={selectedCategoryState}/>
+        <Categories navigation={navigation}/>
     </>
   )
 }
@@ -16,3 +14,5 @@ const Home = ({selectedCategoryState}) => {
 export default Home
 
 const styles = StyleSheet.create({})
+
+//        <Header title="Home"/>

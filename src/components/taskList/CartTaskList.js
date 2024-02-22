@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
-import ButtonPrimary from './ButtonPrimary';
+import ButtonPrimary from '../ButtonPrimary';
 
 const CartTaskList = ({ item, onHandlerModaDelete, screenWidth, updateTaskCompleted }) => {
   return (

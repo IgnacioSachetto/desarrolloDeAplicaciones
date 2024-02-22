@@ -1,71 +1,55 @@
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useFonts } from "expo-font"
 import { StatusBar } from 'expo-status-bar'
 import { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, useWindowDimensions } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
+import Header from './src/components/Header'
 import Home from './src/screens/Home'
 import ProductDetail from './src/screens/ProductDetail'
-import ProductsByCategory from './src/screens/ProductsByCategory'
+import ProductByCategory from './src/screens/ProductsByCategory'
 import colors from './src/utils/globals/colors'
 import { fontCollection } from './src/utils/globals/fonts'
-
-import { NavigationContainer } from '@react-navigation/native'
-
-
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [fontsLoaded] = useFonts(fontCollection)
-  const [categorySelected,setCategorySelected] = useState("")
-  const [productId,setProductId] = useState(0)
-  const {width,height} = useWindowDimensions()
-  const [portrait,setPortrait] = useState(true)
+  const { width, height } = useWindowDimensions()
+  const [portrait, setPortrait] = useState(true)
 
-  useEffect(()=>{
-    if(width > height) setPortrait(false)
+  useEffect(() => {
+    if (width > height) setPortrait(false)
     else setPortrait(true)
-  },[width,height])
+  }, [width, height])
 
-  if(!fontsLoaded) return null
-
-  const selectedCategoryState = (category) => {
-    setCategorySelected(category)
-
-  }
-  const selectedProductId = (id) => {
-    setProductId(id)
-  }
+  if (!fontsLoaded) return null
 
   return (
     <>
-        <NavigationContainer>
-
       <StatusBar backgroundColor={colors.yellowPage} />
-      <SafeAreaView style={styles.container}>
-        {categorySelected ?
-                  productId ?
-                    <ProductDetail
-                      productId={productId}
-                      portrait={portrait}
-                       />
-                    :
-                    <ProductsByCategory
-                      selectedProductId={selectedProductId}
-                      categorySelected={categorySelected}/>
-                  :
-                  <Home selectedCategoryState={selectedCategoryState}/>
-
-        }
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Home'
+          screenOptions={({ route, navigation }) => ({
+            header: () => <Header title={route.name === "Home" ? "Categories" : route.name === "ProductByCategory" ? route.params.categorySelected : "Product Details"} />,
+          })}
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="ProductByCategory" component={ProductByCategory} />
+          <Stack.Screen name="ProductDetail" component={ProductDetail} />
+        </Stack.Navigator>
       </NavigationContainer>
-
     </>
-
   )
+
 }
 
 export default App
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1
+  container: {
+    flex: 1
   }
 })
+
+

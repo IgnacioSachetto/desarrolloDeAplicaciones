@@ -1,14 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import Header from '../components/Header';
+import { FlatList, StyleSheet, View } from 'react-native';
 import ProductByCategory from '../components/ProductByCategory';
 import Search from '../components/Search';
 import products from '../utils/data/products.json';
 
-const ProductsByCategory = ({ categorySelected, selectedProductId }) => {
-  const navigation = useNavigation();
-
+const ProductsByCategory = ({ navigation, route }) => {
+  const { categorySelected } = route.params;
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [keyword, setKeyword] = useState('');
 
@@ -17,27 +14,35 @@ const ProductsByCategory = ({ categorySelected, selectedProductId }) => {
   };
 
   useEffect(() => {
-    if (categorySelected) setProductsFiltered(products.filter(product => product.category === categorySelected));
-    if (keyword) setProductsFiltered(productsFiltered.filter(product => {
-      const productTitleLower = product.title.toLowerCase();
-      const keywordLower = keyword.toLowerCase();
-      return productTitleLower.includes(keywordLower);
-    }));
+    if (categorySelected) {
+      setProductsFiltered(products.filter(product => product.category === categorySelected));
+    }
+    if (keyword) {
+      setProductsFiltered(productsFiltered.filter(product => {
+        const productTitleLower = product.title.toLowerCase();
+        const keywordLower = keyword.toLowerCase();
+        return productTitleLower.includes(keywordLower);
+      }));
+    }
   }, [categorySelected, keyword]);
 
   return (
-    <>
-      <Header title={categorySelected} />
+    <View style={styles.container}>
       <Search handlerKeyword={handlerKeyword} />
       <FlatList
         data={productsFiltered}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ProductByCategory selectedProductId={selectedProductId} item={item} />}
+        renderItem={({ item }) => <ProductByCategory navigation={navigation} item={item} />}
       />
-    </>
+    </View>
   );
 };
 
-export default ProductsByCategory;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+});
 
-const styles = StyleSheet.create({});
+export default ProductsByCategory;
