@@ -15,4 +15,3 @@ export default Home
 
 const styles = StyleSheet.create({})
 
-//        <Header title="Home"/>
