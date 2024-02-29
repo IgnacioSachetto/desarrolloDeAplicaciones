@@ -6,7 +6,7 @@ import ShadowPrimary from './wrappers/ShadowPrimary';
 
 const CardCategory = ({ item , navigation }) => {
   return (
-    <Pressable onPress={() => navigation.navigate("ProductByCategory", {categorySelected:item})}>
+    <Pressable onPress={() => navigation.navigate("ProductsByCategory", {categorySelected:item})}>
 
       <ShadowPrimary style={styles.container}>
         <Text style={styles.text}>{item}</Text>
