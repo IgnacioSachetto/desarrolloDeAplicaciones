@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.yellowPage,
         borderRadius: 20,
         padding: 10,
-        margin:2,
+        marginLeft:35,
     },
     buttonText: {
         fontSize: 20,

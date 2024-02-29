@@ -13,11 +13,9 @@ const ProductDetail = ({route}) => {
     setProduct(productFinded)
   },[productId])
 
-
-
   return (
     <View style={styles.container}>
-    <View style={styles.content} >
+      <View style={styles.content}>
         <Image
           style={styles.image}
           source={{uri:product?.images ? product.images[0] : null}}
@@ -27,12 +25,17 @@ const ProductDetail = ({route}) => {
           <Text style={styles.title}>{product.title}</Text>
           <Text>{product.description}</Text>
         </View>
-        <View style={styles.containerPrice }>
+        <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.price}</Text>
+        </View>
+        <View style={styles.containerButton}>
           <Counter
             initialValue={1}
             product={product}
-            textButton="Add To Cart" />
+            textButton="Add To Cart"
+            buttonStyle={styles.addButton}
+            buttonTextStyle={styles.addButtonText}
+          />
         </View>
       </View>
     </View>
@@ -61,6 +64,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
+  containerButton: {
+    alignItems: 'center',
+    marginTop: 20,
+    marginLeft: 20,
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -73,16 +81,14 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 30,
   },
-  buyNow: {
-    backgroundColor: colors.green1,
+  addButton: {
+    backgroundColor: colors.yellowPage,
+    borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
-    alignSelf: 'center',
-    marginLeft: 10,
   },
-  buyNowText: {
-    color: 'white',
+  addButtonText: {
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
   },
