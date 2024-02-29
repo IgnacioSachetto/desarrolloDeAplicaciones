@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import products from '../utils/data/products.json';
-import colors from '../utils/globals/colors';
+import { useEffect, useState } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import Counter from '../components/Counter'
+import products from '../utils/data/products.json'
+import colors from '../utils/globals/colors'
 
-const ProductDetail = ({ route }) => {
-  const { productId } = route.params;
-  const [product, setProduct] = useState({});
+const ProductDetail = ({route}) => {
+  const {productId} = route.params
+  const [product,setProduct] = useState({})
 
-  useEffect(() => {
-    const productFound = products.find(product => product.id === productId);
-    setProduct(productFound);
-  }, [productId]);
+  useEffect(()=>{
+    const productFinded = products.find(product => product.id === productId)
+    setProduct(productFinded)
+  },[productId])
+
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+    <View style={styles.content} >
         <Image
           style={styles.image}
-          source={{ uri: product?.images ? product.images[0] : null }}
+          source={{uri:product?.images ? product.images[0] : null}}
           resizeMode='cover'
         />
         <View style={styles.containerText}>
           <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <Text>{product.description}</Text>
         </View>
-        <View style={styles.containerPrice}>
+        <View style={styles.containerPrice }>
           <Text style={styles.price}>$ {product.price}</Text>
+          <Counter
+            initialValue={1}
+            product={product}
+            textButton="Add To Cart" />
         </View>
-        <Pressable style={styles.buyNow}>
-          <Text style={styles.buyNowText}>Comprar Ahora</Text>
-        </Pressable>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     alignSelf: 'center',
+    marginLeft: 10,
   },
   buyNowText: {
     color: 'white',

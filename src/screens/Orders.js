@@ -2,7 +2,6 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import OrderItem from '../components/OrderItem';
 import orders from '../utils/data/orders.json';
-import colors from '../utils/globals/colors';
 
 const Orders = () => {
   return (
@@ -19,12 +18,10 @@ const Orders = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.yellowPage,
+    backgroundColor: 'black',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 10,
   },
 });
 

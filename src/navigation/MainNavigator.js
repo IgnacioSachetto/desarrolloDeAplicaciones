@@ -25,7 +25,7 @@ const MainNavigator = () => {
                     component={ShopStack}
                     options={{
                         tabBarIcon: ({focused}) =>
-                        <TabBarIcon title="Productos" nameIcon="home" focused={focused}/>
+                        <TabBarIcon title="Products" nameIcon="home" focused={focused}/>
                     }}
                 />
                 <Tab.Screen 
@@ -33,7 +33,7 @@ const MainNavigator = () => {
                     component={CartStack}
                     options={{
                         tabBarIcon: ({focused}) => 
-                        <TabBarIcon title="Carrito" nameIcon="shopping-cart" focused={focused}/>
+                        <TabBarIcon title="Cart" nameIcon="shopping-cart" focused={focused}/>
                     }}
                 />
                 <Tab.Screen 
@@ -41,7 +41,7 @@ const MainNavigator = () => {
                     component={OrdersStack}
                     options={{
                         tabBarIcon: ({focused}) =>
-                        <TabBarIcon title="Ordenes" nameIcon="list" focused={focused}/>
+                        <TabBarIcon title="Orders" nameIcon="list" focused={focused}/>
                     }}
                 />
            </Tab.Navigator>
@@ -60,10 +60,9 @@ const styles = StyleSheet.create({
         right: 20,
         bottom: 25,
         borderRadius: 15,
-        elevation: 4,
-        shadowOpacity: 0.23,
-        shadowRadius: 2.62,
         paddingHorizontal: 10,
         paddingTop: 5,
+        borderWidth: 1,
+        borderColor: 'black'
     },
 });

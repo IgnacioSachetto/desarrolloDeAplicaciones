@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import ProductByCategory from '../components/ProductByCategory';
-import Search from '../components/Search';
-import products from '../utils/data/products.json';
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
+import ProductByCategory from '../components/ProductByCategory'
+import Search from '../components/Search'
+import products from '../utils/data/products.json'
 
 const ProductsByCategory = ({ navigation, route }) => {
-  const { categorySelected } = route.params;
-  const [productsFiltered, setProductsFiltered] = useState([]);
-  const [keyword, setKeyword] = useState('');
+  const { categorySelected } = route.params
+  const [productsFiltered, setProductsFiltered] = useState([])
+  const [keyword, setKeyword] = useState("")
 
   const handlerKeyword = (k) => {
-    setKeyword(k);
-  };
+    setKeyword(k)
+  }
 
   useEffect(() => {
+    let filteredProducts = products
     if (categorySelected) {
-      setProductsFiltered(products.filter(product => product.category === categorySelected));
+      filteredProducts = filteredProducts.filter(product => product.category === categorySelected)
     }
     if (keyword) {
-      setProductsFiltered(productsFiltered.filter(product => {
-        const productTitleLower = product.title.toLowerCase();
-        const keywordLower = keyword.toLowerCase();
-        return productTitleLower.includes(keywordLower);
-      }));
+      const keywordLower = keyword.toLowerCase()
+      filteredProducts = filteredProducts.filter(product => product.title.toLowerCase().includes(keywordLower))
     }
-  }, [categorySelected, keyword]);
+    setProductsFiltered(filteredProducts)
+  }, [categorySelected, keyword])
 
   return (
     <View style={styles.container}>
       <Search handlerKeyword={handlerKeyword} />
       <FlatList
         data={productsFiltered}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ProductByCategory navigation={navigation} item={item} />}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

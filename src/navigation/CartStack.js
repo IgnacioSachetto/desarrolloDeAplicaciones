@@ -10,7 +10,7 @@ const CartStack = () => {
         screenOptions={({navigation})=>{
             return {
                 header: () => {
-                    return <Header title='Carrito' navigation={navigation}/>  
+                    return <Header title='Cart' navigation={navigation}/>
                 }
             }
         }}

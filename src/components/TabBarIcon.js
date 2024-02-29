@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 const TabBarIcon = ({title,nameIcon,focused}) => {
   return (
     <View style={styles.container}>
-      <Entypo name={nameIcon} size={25} color={focused ? 'grey':'black'}/>
+      <Entypo name={nameIcon} size={25} color={focused ? 'white':'black'}/>
       <Text style={[styles.text,!focused && styles.textFocused]} >{title}</Text>
     </View>
   )

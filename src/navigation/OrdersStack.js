@@ -11,7 +11,7 @@ const OrdersStack = () => {
         screenOptions={({navigation})=>{
             return {
                 header: () => {
-                    return <Header title='Ordenes' navigation={navigation}/> 
+                    return <Header title='Orders' navigation={navigation}/>
                 }
             }
         }}

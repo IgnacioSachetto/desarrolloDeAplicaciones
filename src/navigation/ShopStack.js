@@ -15,9 +15,9 @@ const ShopStack = () => {
                 header: () =>{
                     return <Header 
                                 navigation={navigation}
-                                title={route.name === "Home" ? "Categorias":
+                                title={route.name === "Home" ? "Categories":
                                         route.name ==="ProductsByCategory" ? route.params.categorySelected:
-                                        "Detalle"
+                                        "Product Details"
                 }/>
                 }
                 }
